@@ -18,26 +18,28 @@ export default function QuadCafe() {
   const [selected, setSelected] = useState<string | null>(null);
   const [mapOpen, setMapOpen] = useState(false);
   
-  const shareToTeams = async (food: string) => {
-  const message = `🍱 Lunchiee
+  const shareChoice = async (food: string) => {
+  const message = `🍱 Lunchiee SELECTED!
 
     I'm heading to:
+      NTU
+      Quad Cafe
+      ${food}
 
-    NTU
-    Quad Cafe
-    ${food}
-
-    Join me?`;
+    Wanna join me?😊`;
 
   try {
-    await navigator.clipboard.writeText(message);
-
-    window.open("https://teams.microsoft.com", "_blank");
-
-    alert("Lunch choice copied! Paste it into Teams.");
+    if (navigator.share) {
+      await navigator.share({
+        title: "Lunchiee",
+        text: message,
+      });
+    } else {
+      await navigator.clipboard.writeText(message);
+      alert("Lunch plan copied to clipboard! Yummms");
+    }
   } catch (err) {
     console.error(err);
-    alert("Unable to copy message.");
   }
 };
   const container = {
