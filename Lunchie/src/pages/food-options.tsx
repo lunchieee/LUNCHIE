@@ -28,6 +28,31 @@ export default function FoodOptions() {
   const [selected, setSelected] = useState<string | null>(null);
   const [mapOpen, setMapOpen] = useState(false);
 
+
+  const shareChoice = async (food: string) => {
+  const message = `🍱 Lunchiee SELECTED!
+
+    I'm heading to:
+      NTU
+      Quad Cafe
+      ${food}
+
+    Wanna join me on my conquest?😊`;
+
+  try {
+    if (navigator.share) {
+      await navigator.share({
+        title: "Lunchiee",
+        text: message,
+      });
+    } else {
+      await navigator.clipboard.writeText(message);
+      alert("Lunch plan copied to clipboard! Yummms");
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
   const container = {
     hidden: { opacity: 0 },
     show: {
@@ -58,19 +83,26 @@ export default function FoodOptions() {
           </h1>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="mt-12"
-        >
-          <button
-            onClick={() => setSelected(null)}
-            className="bg-white text-primary font-bold py-3 px-8 rounded-full text-xl hover:scale-105 transition-transform"
-          >
-            Actually, nah
-          </button>
-        </motion.div>
+       <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1 }}
+        className="mt-12 flex flex-wrap gap-4 justify-center"
+      >
+       <button
+        onClick={() => shareChoice(selected)}
+        className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-xl hover:scale-105 transition-transform"
+      >
+      Share Lunch Plan
+    </button>
+
+  <button
+    onClick={() => setSelected(null)}
+    className="bg-white text-accent-foreground font-bold py-3 px-8 rounded-full text-xl hover:scale-105 transition-transform"
+  >
+    Actually, nah
+  </button>
+</motion.div>
 
         {Array.from({ length: 30 }).map((_, i) => (
           <motion.div
