@@ -17,7 +17,29 @@ const COLORS = ["primary", "secondary", "accent"];
 export default function QuadCafe() {
   const [selected, setSelected] = useState<string | null>(null);
   const [mapOpen, setMapOpen] = useState(false);
+  
+  const shareToTeams = async (food: string) => {
+  const message = `🍱 Lunchiee
 
+    I'm heading to:
+
+    NTU
+    Quad Cafe
+    ${food}
+
+    Join me?`;
+
+  try {
+    await navigator.clipboard.writeText(message);
+
+    window.open("https://teams.microsoft.com", "_blank");
+
+    alert("Lunch choice copied! Paste it into Teams.");
+  } catch (err) {
+    console.error(err);
+    alert("Unable to copy message.");
+  }
+};
   const container = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: 0.07 } },
@@ -44,13 +66,19 @@ export default function QuadCafe() {
             {selected}!
           </h1>
         </motion.div>
-
+        
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
           className="mt-12"
         >
+          <button
+            onClick={() => shareToTeams(selected)}
+            className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-xl hover:scale-105 transition-transform"
+          >
+            Share to Teams
+          </button>
           <button
             onClick={() => setSelected(null)}
             className="bg-white text-accent-foreground font-bold py-3 px-8 rounded-full text-xl hover:scale-105 transition-transform"
