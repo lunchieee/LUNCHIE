@@ -76,11 +76,11 @@ export default function QuadCafe() {
   className="mt-12 flex flex-wrap gap-4 justify-center"
 >
   <button
-    onClick={() => shareToTeams(selected)}
-    className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-xl hover:scale-105 transition-transform"
-  >
-    Share to Teams
-  </button>
+  onClick={() => shareChoice(selected)}
+  className="bg-blue-600 text-white font-bold py-3 px-8 rounded-full text-xl hover:scale-105 transition-transform"
+>
+  Share Lunch Plan
+</button>
 
   <button
     onClick={() => setSelected(null)}
