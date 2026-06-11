@@ -15,7 +15,7 @@ const options = [
 const COLORS = ["primary", "secondary", "accent"];
 
 export default function QuadCafe() {
-  const [, navigate] = useLocation();
+  
   const [selected, setSelected] = useState<string | null>(null);
   const [mapOpen, setMapOpen] = useState(false);
   
@@ -118,14 +118,7 @@ export default function QuadCafe() {
       exit={{ opacity: 0 }}
       className="h-[100dvh] w-full flex flex-col relative"
     >
-      <div className="absolute top-4 left-4 z-50">
-      <button
-        onClick={() => navigate("/ntu-canteens")}
-        className="bg-white border-2 border-foreground rounded-xl px-4 py-2 font-bold chunky-shadow"
-      >
-        ← Back
-      </button>
-    </div>
+     
       <div className="shrink-0 pt-6 pb-2 px-6 text-center">
         <h1 className="text-3xl md:text-5xl font-black mb-1">
           Quad Cafe 🏫
